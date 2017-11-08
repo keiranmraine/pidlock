@@ -50,7 +50,7 @@ def lock(name, pid):
 if __name__ == "__main__":
 
     commands = sys.argv[1:]
-    name = commands[0]
+    name = commands[0].split(";")[0].split("/")[-1]
 
     with lock(name, os.getpid()):
         print("Running command:"," ".join(commands))
