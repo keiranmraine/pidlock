@@ -12,7 +12,7 @@ import psutil
 from contextlib import contextmanager
 
 
-VERSION = 'v1.0.1'
+VERSION = 'v1.0.2'
 
 class PIDLockedException(Exception):
     def __init__(self, name, pid):

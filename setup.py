@@ -48,7 +48,7 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     entry_points={
         'console_scripts': [
-            'pidlock = pidlock:cli_lock',
+            'pidlock = pidlock:pidlock_cli',
         ]
     }
 )
