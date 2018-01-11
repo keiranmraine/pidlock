@@ -6,13 +6,13 @@ Documentation:  https://github.com/sayanarijit/pidlock
 '''
 
 from __future__ import print_function
-import re
 import os
 import sys
+import psutil
 from contextlib import contextmanager
 
 
-VERSION = 'v1.0.0'
+VERSION = 'v1.0.1'
 
 class PIDLockedException(Exception):
     def __init__(self, name, pid):
@@ -27,19 +27,22 @@ class PIDLock:
     RAISES:
         PIDLockedException
     EXAMPLE:
+        import time
+        from pidlock import PIDLock
         locker = PIDLock()
-        with locker.lock('sleepy_script', os.getpid()):
-            time.sleep(5)
+        with locker.lock('sleepy_script'):
+            time.sleep(10)
     """
     def __init__(self, lockdir='~/.pidlock', verbose=True):
         self.lockdir = os.path.expanduser(lockdir)
         self.verbose = verbose
 
     @contextmanager
-    def lock(self, name, pid):
+    def lock(self, name):
         if not os.path.isdir(self.lockdir): os.mkdir(self.lockdir)
 
         pidfile = os.path.join(self.lockdir, name + ".pid")
+        pid = os.getpid()
 
         # If lock exists
         if os.path.isfile(pidfile):
@@ -47,7 +50,8 @@ class PIDLock:
             xpid = int(f.read())
             f.close()
             # If pid exists, quit
-            pids = [int(x.split()[1]) for x in os.popen("ps -eaf").read().splitlines()[1:]]
+            pids = psutil.pids()
+            pids.remove(pid)
             if xpid in pids:
                 raise PIDLockedException(name, xpid)
             # Else remove lock
@@ -70,22 +74,31 @@ class PIDLock:
             os.remove(pidfile)
 
 
-def cli_lock():
+def pidlock_cli():
     """
     CLI interface for PID based locking
+    USAGE:
+        pidlock [-h] -n NAME -c COMMAND [--version]
     EXAMPLE:
-        pidlock 'sleep 2; sleep 2; sleep 2'
+        pidlock -n sleepy_script -c 'sleep 10'
     """
-    commands = sys.argv[1:]
-    if len(commands) == 0:
-        return
-    name = re.sub('[^0-9a-zA-Z]', '', ''.join(sys.argv[1:]))
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        prog='pidlock',
+        description='Simple PID based locking for cronjobs, UNIX scripts or python programs'
+    )
+    parser.add_argument('-n', dest='name', help='name of the lock file', required=True)
+    parser.add_argument('-c', dest='command', help='commands/script to be executed', required=True)
+    parser.add_argument('--version', action='version', version='pidlock '+VERSION)
+
+    parsed = parser.parse_args()
 
     locker = PIDLock()
-    with locker.lock(name, os.getpid()):
-        print("Running command:"," ".join(commands))
-        os.system(" ".join(commands))
+    with locker.lock(parsed.name):
+        print("Running command:", parsed.command)
+        os.system(parsed.command)
 
 
 if __name__ == "__main__":
-    cli_lock()
+    pidlock_cli()
