@@ -38,6 +38,6 @@ pidlock 'sleep 2; sleep 2; sleep 2'
 
 You can pass PID file location and verbosity as arguments
 
-```
+```python
 locker = PIDLock(lockdir='~/anotherlockdir', verbose=False)
 ```
