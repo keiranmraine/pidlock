@@ -34,7 +34,7 @@ pidlock 'sleep 2; sleep 2; sleep 2'
 ```
 
 
-### Customization
+### Customization:
 
 You can pass PID file location and verbosity as arguments
 
