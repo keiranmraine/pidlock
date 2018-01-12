@@ -14,7 +14,7 @@ from codecs import open
 from contextlib import contextmanager
 
 
-VERSION = 'v1.0.6'
+VERSION = 'v1.0.7'
 
 
 class PIDLockedException(Exception):
