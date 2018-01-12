@@ -1,5 +1,5 @@
 [![PyPI version](https://img.shields.io/pypi/v/pidlock.svg)](https://pypi.python.org/pypi/pidlock)
-[![Build Status](https://travis-ci.org/sayanarijit/pidlock.svg?branch=v1.0.4)](https://travis-ci.org/sayanarijit/pidlock)
+[![Build Status](https://travis-ci.org/sayanarijit/pidlock.svg?branch=master)](https://travis-ci.org/sayanarijit/pidlock)
 
 
 # pidlock
