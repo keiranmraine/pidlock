@@ -1,3 +1,7 @@
+[![PyPI version](https://img.shields.io/pypi/v/ansible.svg)](https://pypi.python.org/pypi/ansible)
+[![Build Status](https://travis-ci.org/sayanarijit/pidlock.svg?branch=v1.0.4)](https://travis-ci.org/sayanarijit/pidlock)
+
+
 # pidlock
 
 Simple PID based locking for cronjobs, UNIX scripts or python programs
