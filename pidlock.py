@@ -7,10 +7,12 @@ Documentation:  https://github.com/sayanarijit/pidlock
 
 from __future__ import print_function
 import os
-from os import path
+import sys
 import psutil
+from os import path
 from codecs import open
 from contextlib import contextmanager
+from config import VERSION
 
 
 class PIDLockedException(Exception):
@@ -83,23 +85,27 @@ def pidlock_cli():
     """
     import argparse
 
-    with open(path.join(path.abspath(path.dirname(__file__)), 'VERSION'), encoding='utf-8') as f:
-        version = f.read()
-
     parser = argparse.ArgumentParser(
         prog='pidlock',
         description='Simple PID based locking for cronjobs, UNIX scripts or python programs'
     )
     parser.add_argument('-n', dest='name', help='name of the lock file', required=True)
     parser.add_argument('-c', dest='command', help='commands/script to be executed', required=True)
-    parser.add_argument('--version', action='version', version='pidlock '+version)
+    parser.add_argument('--version', action='version', version='pidlock '+VERSION)
 
     parsed = parser.parse_args()
 
     locker = PIDLock()
-    with locker.lock(parsed.name):
-        print("Running command:", parsed.command)
-        os.system(parsed.command)
+    try:
+        with locker.lock(parsed.name):
+            print("Running command:", parsed.command)
+            quit(os.system(parsed.command))
+    except PIDLockedException as e:
+        print(e, file=sys.stderr)
+        quit(1)
+    except Exception as e:
+        print(e, file=sys.stderr)
+        quit(3)
 
 
 if __name__ == "__main__":
