@@ -7,13 +7,10 @@ Documentation:  https://github.com/sayanarijit/pidlock
 
 from __future__ import print_function
 import os
+from os import path
 import psutil
 from codecs import open
 from contextlib import contextmanager
-
-
-with open('VERSION', encoding='utf-8') as f:
-    VERSION = f.read()
 
 
 class PIDLockedException(Exception):
@@ -36,18 +33,18 @@ class PIDLock:
             time.sleep(10)
     """
     def __init__(self, lockdir='~/.pidlock', verbose=True):
-        self.lockdir = os.path.expanduser(lockdir)
+        self.lockdir = path.expanduser(lockdir)
         self.verbose = verbose
 
     @contextmanager
     def lock(self, name):
-        if not os.path.isdir(self.lockdir): os.mkdir(self.lockdir)
+        if not path.isdir(self.lockdir): os.mkdir(self.lockdir)
 
-        pidfile = os.path.join(self.lockdir, name + ".pid")
+        pidfile = path.join(self.lockdir, name + ".pid")
         pid = os.getpid()
 
         # If lock exists
-        if os.path.isfile(pidfile):
+        if path.isfile(pidfile):
             f = open(pidfile, encoding='utf-8')
             xpid = int(f.read())
             f.close()
@@ -86,13 +83,16 @@ def pidlock_cli():
     """
     import argparse
 
+    with open(path.join(path.abspath(path.dirname(__file__)), 'VERSION'), encoding='utf-8') as f:
+        version = f.read()
+
     parser = argparse.ArgumentParser(
         prog='pidlock',
         description='Simple PID based locking for cronjobs, UNIX scripts or python programs'
     )
     parser.add_argument('-n', dest='name', help='name of the lock file', required=True)
     parser.add_argument('-c', dest='command', help='commands/script to be executed', required=True)
-    parser.add_argument('--version', action='version', version='pidlock '+VERSION)
+    parser.add_argument('--version', action='version', version='pidlock '+version)
 
     parsed = parser.parse_args()
 
