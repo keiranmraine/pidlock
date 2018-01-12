@@ -3,6 +3,6 @@ python:
     - "2.7"
     - "3.6"
 install:
-    - pip install pidlock
+    - pip install -r requirements.txt
 script:
     - python setup.py test
