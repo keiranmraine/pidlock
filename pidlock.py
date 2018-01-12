@@ -12,7 +12,9 @@ import psutil
 from os import path
 from codecs import open
 from contextlib import contextmanager
-from config import VERSION
+
+
+VERSION = 'v1.0.6'
 
 
 class PIDLockedException(Exception):
@@ -101,10 +103,10 @@ def pidlock_cli():
             print("Running command:", parsed.command)
             quit(os.system(parsed.command))
     except PIDLockedException as e:
-        print(e, file=sys.stderr)
+        print('pidlock:', e, file=sys.stderr)
         quit(1)
     except Exception as e:
-        print(e, file=sys.stderr)
+        print('pidlock:', e, file=sys.stderr)
         quit(3)
 
 

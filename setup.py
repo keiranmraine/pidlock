@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from config import VERSION
+
+VERSION = 'v1.0.6'
 
 here = path.abspath(path.dirname(__file__))
 
