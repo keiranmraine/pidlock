@@ -14,7 +14,7 @@ from codecs import open
 from contextlib import contextmanager
 
 
-VERSION = 'v1.0.7'
+VERSION = 'v1.1.0'
 
 
 class PIDLockedException(Exception):
@@ -91,16 +91,24 @@ def pidlock_cli():
         prog='pidlock',
         description='Simple PID based locking for cronjobs, UNIX scripts or python programs'
     )
-    parser.add_argument('-n', dest='name', help='name of the lock file', required=True)
-    parser.add_argument('-c', dest='command', help='commands/script to be executed', required=True)
-    parser.add_argument('--version', action='version', version='pidlock '+VERSION)
+    parser.add_argument('-n', '--name',
+        help='name of the lock file', required=True)
+    parser.add_argument('-c', '--command',
+        help='commands/script to be executed', required=True)
+    parser.add_argument('-l', '--lockdir',
+        help='directory to keep lock files. (default: ~/.pidlock)', default='~/.pidlock')
+    parser.add_argument('-v', '--verbose',
+        action='store_true', help='use this flag to make it verbose. (default: False)', default=False)
+    parser.add_argument('-V', '--version',
+        action='version', version='pidlock '+VERSION)
 
     parsed = parser.parse_args()
 
-    locker = PIDLock()
+    locker = PIDLock(parsed.lockdir, parsed.verbose)
     try:
         with locker.lock(parsed.name):
-            print("Running command:", parsed.command)
+            if parsed.verbose:
+                print("Running command:", parsed.command)
             quit(os.system(parsed.command))
     except PIDLockedException as e:
         print('pidlock:', e, file=sys.stderr)

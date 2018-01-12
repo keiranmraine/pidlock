@@ -34,7 +34,14 @@ with locker.lock('sleepy_script'):
 * Use it as commandline/cron job
 
 ```bash
+# To display help menu
+pidlock -h    # Or pidlock --help
+
+# Example usage
 pidlock -n sleepy_script -c 'sleep 10'
+
+# Same as
+pidlock --name sleepy_script --command 'sleep 10'
 ```
 
 
@@ -43,5 +50,13 @@ pidlock -n sleepy_script -c 'sleep 10'
 * You can pass PID file location and verbosity as arguments
 
 ```python
+# Python Usage
 locker = PIDLock(lockdir='~/.pidlock', verbose=True)
+```
+```bash
+# Commandline usage
+pidlock -n sleepy_script -c 'sleep 10' -l ~/.pidlock -v
+
+# Same as
+pidlock --name sleepy_script --command 'sleep 10' --lockdir ~/.pidlock --verbose
 ```
