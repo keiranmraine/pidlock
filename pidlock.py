@@ -7,12 +7,14 @@ Documentation:  https://github.com/sayanarijit/pidlock
 
 from __future__ import print_function
 import os
-import sys
 import psutil
+from codecs import open
 from contextlib import contextmanager
 
 
-VERSION = 'v1.0.2'
+with open('VERSION', encoding='utf-8') as f:
+    VERSION = f.read()
+
 
 class PIDLockedException(Exception):
     def __init__(self, name, pid):
@@ -46,7 +48,7 @@ class PIDLock:
 
         # If lock exists
         if os.path.isfile(pidfile):
-            f = open(pidfile)
+            f = open(pidfile, encoding='utf-8')
             xpid = int(f.read())
             f.close()
             # If pid exists, quit
@@ -60,7 +62,7 @@ class PIDLock:
         # Else create lock
         if self.verbose:
             print('Locking "{}" with PID: {}'.format(name, pid))
-        f = open(pidfile, "w")
+        f = open(pidfile, "w", encoding='utf-8')
         f.write(str(pid))
         f.close()
 

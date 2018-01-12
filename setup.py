@@ -1,9 +1,16 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from pidlock import VERSION
 
 here = path.abspath(path.dirname(__file__))
+
+# Get version from VERSION file
+with open(path.join(here, 'VERSION'), encoding='utf-8') as f:
+    version = f.read()
+
+# Get requirements from requirements.txt file
+with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
+    requirements = f.read().splitlines()
 
 # Get the long description from the README file
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
@@ -11,11 +18,11 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='pidlock',
-    version=VERSION,
+    version=version,
     description='Simple PID based locking for cronjobs, UNIX scripts or python programs',
     long_description=long_description,
     url='https://github.com/sayanarijit/pidlock',
-    download_url='https://github.com/sayanarijit/pidlock/archive/{}.tar.gz'.format(VERSION),
+    download_url='https://github.com/sayanarijit/pidlock/archive/{}.tar.gz'.format(version),
     author='Arijit Basu',
     author_email='sayanarijit@gmail.com',
     license='MIT',
@@ -46,6 +53,7 @@ setup(
     ],
     keywords='PID Based File Locking',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    install_requires=requirements,
     entry_points={
         'console_scripts': [
             'pidlock = pidlock:pidlock_cli',
