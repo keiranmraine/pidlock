@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-VERSION = 'v1.1.0'
+VERSION = 'v1.1.4'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -19,6 +19,7 @@ setup(
     version=VERSION,
     description='Simple PID based locking for cronjobs, UNIX scripts or python programs',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/sayanarijit/pidlock',
     download_url='https://github.com/sayanarijit/pidlock/archive/{}.tar.gz'.format(VERSION),
     author='Arijit Basu',
