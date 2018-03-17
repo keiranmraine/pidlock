@@ -16,13 +16,13 @@ Simple PID based locking for cronjobs, UNIX scripts or python programs
 
 * Install with pip
 
-```bash
+```
 sudo pip install -U pidlock
 ```
 
 * Use it from inside python script
 
-```python
+```
 import time
 from pidlock import PIDLock
 
@@ -33,7 +33,7 @@ with locker.lock('sleepy_script'):
 
 * Use it as commandline/cron job
 
-```bash
+```
 # To display help menu
 pidlock -h    # Or pidlock --help
 
@@ -49,11 +49,11 @@ pidlock --name sleepy_script --command 'sleep 10'
 
 * You can pass PID file location and verbosity as arguments
 
-```python
+```
 # Python Usage
 locker = PIDLock(lockdir='~/.pidlock', verbose=True)
 ```
-```bash
+```
 # Commandline usage
 pidlock -n sleepy_script -c 'sleep 10' -l ~/.pidlock -v
 
