@@ -47,16 +47,19 @@ pidlock --name sleepy_script --command 'sleep 10'
 
 ### Customization:
 
-* You can pass PID file location and verbosity as arguments
+* You can pass PID file location, verbosity, time limit and minimum interval as arguments
 
 ```
 # Python Usage
 locker = PIDLock(lockdir='~/.pidlock', verbose=True)
+
+with locker.lock('sleepy_script', wait=10, mininterval=1):
+    time.sleep(10)
 ```
 ```
 # Commandline usage
-pidlock -n sleepy_script -c 'sleep 10' -l ~/.pidlock -v
+pidlock -n sleepy_script -c 'sleep 10' -l ~/.pidlock -v -w 10 -m 1
 
 # Same as
-pidlock --name sleepy_script --command 'sleep 10' --lockdir ~/.pidlock --verbose
+pidlock --name sleepy_script --command 'sleep 10' --lockdir ~/.pidlock --verbose --wait 10 --mininterval 1
 ```
