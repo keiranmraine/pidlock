@@ -8,6 +8,7 @@ Documentation:  https://github.com/sayanarijit/pidlock
 from __future__ import print_function
 import os
 import sys
+import subprocess
 import psutil
 from os import path
 from codecs import open
@@ -109,12 +110,7 @@ def pidlock_cli():
         with locker.lock(parsed.name):
             if parsed.verbose:
                 print("Running command:", parsed.command)
-            rval = os.system(parsed.command)
-            if os.name in ['posix']:
-                # On unix this is a two byte number who's higher byte contains the processes exit code.
-                # https://docs.python.org/2/library/os.html#os.system
-                rval = rval >> 8
-            quit(rval)
+            quit(subprocess.Popen(parsed.command, shell=True).wait())
     except PIDLockedException as e:
         print('pidlock:', e, file=sys.stderr)
         quit(1)
