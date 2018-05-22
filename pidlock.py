@@ -109,7 +109,12 @@ def pidlock_cli():
         with locker.lock(parsed.name):
             if parsed.verbose:
                 print("Running command:", parsed.command)
-            quit(os.system(parsed.command))
+            rval = os.system(parsed.command)
+            if os.name in ['posix']:
+                # On unix this is a two byte number who's higher byte contains the processes exit code.
+                # https://docs.python.org/2/library/os.html#os.system
+                rval = rval >> 8
+            quit(rval)
     except PIDLockedException as e:
         print('pidlock:', e, file=sys.stderr)
         quit(1)
