@@ -1,0 +1,18 @@
+line-length = 120
+target-version = ['py39']
+include = '\.py$'
+#extend-exclude = '''
+## A regex preceded with ^/ will apply only to files and directories
+## in the root of the project.
+#^/foo.py  # exclude a file named foo.py in the root of the project (in addition to the defaults)
+#'''
+
+[tool.vulture]
+exclude = ["venv/",".venv/"]
+ignore_decorators = ["@app.route", "@require_*"]
+ignore_names = ["visit_*", "do_*"]
+make_whitelist = true
+min_confidence = 80
+paths = ["pidlock.py"]
+sort_by_size = true
+verbose = false
