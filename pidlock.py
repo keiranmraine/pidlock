@@ -17,9 +17,10 @@ from codecs import open
 from subprocess import Popen
 from contextlib import contextmanager
 from socket import getfqdn
+import pkg_resources  # part of setuptools
 
 
-VERSION = "v3.0.0"
+VERSION = pkg_resources.require("pidlock")[0].version
 
 
 class PIDLockedException(Exception):
