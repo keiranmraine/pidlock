@@ -33,11 +33,10 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - build:
-          command: python setup.py install
       - run:
           name: Run tests
           command: |
+              python setup.py install
               python ./pidlock.py --version
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose -w 1 -m .05
