@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*-coding: utf-8 -*-
 """
-Author:         Arijit Basu <sayanarijit@gmail.com>
-Documentation:  https://github.com/sayanarijit/pidlock#pidlock
+Original Author:         Arijit Basu
+Supporting Author:       Keiran Raine <keiranmraine@gmail.com>
+Documentation:  https://github.com/keiranmraine/pidlock#pidlock
 """
 
 from __future__ import print_function

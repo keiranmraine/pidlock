@@ -60,3 +60,8 @@ pidlock -n sleepy_script -c 'sleep 10' -l ~/.pidlock -v -w 10 -m 1
 # Same as
 pidlock --name sleepy_script --command 'sleep 10' --lockdir ~/.pidlock --verbose --wait 10 --mininterval 1
 ```
+
+## Contributions
+
+Originally written and published by [Arijit Basu](https://github.com/sayanarijit/).  Adaptation to cope with race conditions
+by Keiran Raine (ongoing owner/support).

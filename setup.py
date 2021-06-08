@@ -21,12 +21,12 @@ setup(
     description="Simple PID based locking for cronjobs, UNIX scripts or python programs",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/sayanarijit/pidlock",
-    download_url="https://github.com/sayanarijit/pidlock/archive/{}.tar.gz".format(
+    url="https://github.com/keiranmraine/pidlock",
+    download_url="https://github.com/keiranmraine/pidlock/archive/{}.tar.gz".format(
         VERSION
     ),
-    author="Arijit Basu",
-    author_email="sayanarijit@gmail.com",
+    author="Keiran Raine",
+    author_email="keiranmraine@gmail.com",
     license="MIT",
     py_modules=["pidlock"],
     classifiers=[
