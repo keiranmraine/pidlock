@@ -41,10 +41,12 @@ jobs:
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose -w 1 -m .05
               python ./pidlock.py -n test -c pwd -l ~/.pidlock -v -w 1 -m .05
-              mkdir -p ~/.pidlock/test/
-              echo -e "1234\tno-host" > ~/.pidlock/test/lock.pid
+              echo 'Confirm existing lock for different host blocks:'
+              mkdir -p ~/.pidlock/test/ && echo -e "1234\tno-host" > ~/.pidlock/test/lock.pid
               set +e
               python ./pidlock.py -n test -c "pwd" -v -w 3; [ $? -eq 1 ] || false
               set -e
               rm -rf ~/.pidlock/test
-              python ./pidlock.py -n test -c "pwd" -v -w 7 -m .5
+              echo 'Confirm lock for non-existent process on this host is cleaned:'
+              mkdir -p ~/.pidlock/test/ && echo -e "999999999\t$HOSTNAME" > ~/.pidlock/test/lock.pid
+              python ./pidlock.py -n test -c "pwd" -v -w 3 -m .5
