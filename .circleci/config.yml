@@ -52,8 +52,8 @@ jobs:
               python ./pidlock.py -n test -c "pwd" -v -w 3 -m .5
               echo 'Ensure current host lock behaves as expected'
               TMP_PID=$(bash -c 'echo $$ && exec sleep 100 >& /dev/null' &)
-              mkdir -p ~/.pidlock/test/ && echo -e "$TMP_PID\tHOSTNAME$" > ~/.pidlock/test/lock.pid
-              TMP_LOCK=$(bash -c 'echo $$ && exec python ./pidlock.py -n test -c "pwd" -v -w 10 -m 1 >& wait-check.log' &)
+              mkdir -p ~/.pidlock/test/ && echo -e "$TMP_PID\t$HOSTNAME" > ~/.pidlock/test/lock.pid
+              TMP_LOCK=$(bash -c 'echo $$ && exec python ./pidlock.py -n test -v -w 20 -m 1 -c "sleep 5">& wait-check.log' &)
               sleep 1
               echo 'Confirm pid has not been changed by new pidlock exec:'
               grep $TMP_PID ~/.pidlock/test/lock.pid
@@ -63,3 +63,7 @@ jobs:
               echo 'Confirm pidlock pid is now in the file:'
               grep $TMP_LOCK ~/.pidlock/test/lock.pid
               kill $TMP_PID
+              sleep 6
+              grep 'Waiting for lock to be released' wait-check.log
+              grep 'Running command' wait-check.log
+              grep 'Released lock' wait-check.log
