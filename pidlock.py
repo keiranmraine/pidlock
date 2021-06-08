@@ -106,6 +106,7 @@ class PIDLock:
                     with open(pidfile, "rt") as p_fh:
                         (lock_pid, lock_host) = p_fh.readline().strip().split("\t")
                     if lock_host == this_host:
+                        lock_pid = int(lock_pid)
                         # now we can look for the pid to see if we should clean it
                         pids = psutil.pids()
                         if lock_pid not in pids:
@@ -199,11 +200,6 @@ def pidlock_cli():
     except PIDLockedException as e:
         print("pidlock:", e, file=sys.stderr)
         quit(1)
-
-
-#    except Exception as e:
-#        print("pidlock:", e, file=sys.stderr)
-#        quit(3)
 
 
 if __name__ == "__main__":
