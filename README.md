@@ -1,15 +1,15 @@
+# pidlock
+
 [![PyPI version](https://img.shields.io/pypi/v/pidlock.svg)](https://pypi.python.org/pypi/pidlock)
 [![Build Status](https://travis-ci.org/sayanarijit/pidlock.svg?branch=master)](https://travis-ci.org/sayanarijit/pidlock)
 
-# pidlock
+Simple PID based locking for cronjobs, UNIX scripts or python programs.  Copes with locking between hosts.
 
-Simple PID based locking for cronjobs, UNIX scripts or python programs
+## Requirement
 
-### Requirement:
+- requires python3
 
-- requires python (>2 or 3)
-
-### Usage:
+## Usage
 
 - Install with pip
 
