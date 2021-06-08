@@ -55,7 +55,7 @@ jobs:
               mkdir -p ~/.pidlock/test/ && echo -e "$TMP_PID\tHOSTNAME$" > ~/.pidlock/test/lock.pid
               TMP_LOCK=$(bash -c 'echo $$ && exec python ./pidlock.py -n test -c "pwd" -v -w 10 >& wait-check.log' &)
               sleep 1
-              echo 'Confirm pid hasn't been changed by new pidlock exec:'
+              echo 'Confirm pid has not been changed by new pidlock exec:'
               grep $TMP_PID ~/.pidlock/test/lock.pid
               echo 'Remove simple sleep lock:'
               rm -rf ~/.pidlock/test
