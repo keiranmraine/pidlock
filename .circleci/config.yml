@@ -53,12 +53,13 @@ jobs:
               echo 'Ensure current host lock behaves as expected'
               TMP_PID=$(bash -c 'echo $$ && exec sleep 100 >& /dev/null' &)
               mkdir -p ~/.pidlock/test/ && echo -e "$TMP_PID\tHOSTNAME$" > ~/.pidlock/test/lock.pid
-              TMP_LOCK=$(bash -c 'echo $$ && exec python ./pidlock.py -n test -c "pwd" -v -w 10 >& wait-check.log' &)
+              TMP_LOCK=$(bash -c 'echo $$ && exec python ./pidlock.py -n test -c "pwd" -v -w 10 -m 1 >& wait-check.log' &)
               sleep 1
               echo 'Confirm pid has not been changed by new pidlock exec:'
               grep $TMP_PID ~/.pidlock/test/lock.pid
-              echo 'Remove simple sleep lock:'
+              echo 'Remove simple sleep lock as though cleaned by a job, not just absent process'
               rm -rf ~/.pidlock/test
-              sleep 1
+              sleep 3
               echo 'Confirm pidlock pid is now in the file:'
               grep $TMP_LOCK ~/.pidlock/test/lock.pid
+              kill $TMP_PID
