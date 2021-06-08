@@ -200,6 +200,9 @@ def pidlock_cli():
     except PIDLockedException as e:
         print("pidlock:", e, file=sys.stderr)
         quit(1)
+    except Exception as e:
+        print("pidlock:", e, file=sys.stderr)
+        quit(3)
 
 
 if __name__ == "__main__":
