@@ -42,7 +42,7 @@ jobs:
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose -w 1 -m .05
               python ./pidlock.py -n test -c pwd -l ~/.pidlock -v -w 1 -m .05
               mkdir -p ~/.pidlock/test/
-              echo "1234 no-host" > ~/.pidlock/test/lock.pid
+              echo -e "1234\tno-host" > ~/.pidlock/test/lock.pid
               python ./pidlock.py -n test -c "pwd" -v -w 3; [ $? -eq 1 ] || false
               rm -rf ~/.pidlock/test
               python ./pidlock.py -n test -c "pwd" -v -w 7 -m .5
