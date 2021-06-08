@@ -1,7 +1,7 @@
 # pidlock
 
 [![PyPI version](https://img.shields.io/pypi/v/pidlock.svg)](https://pypi.python.org/pypi/pidlock)
-[![Build Status](https://travis-ci.org/sayanarijit/pidlock.svg?branch=master)](https://travis-ci.org/sayanarijit/pidlock)
+[![CircleCI](https://circleci.com/gh/keiranmraine/pidlock/tree/develop.svg?style=svg))](https://circleci.com/gh/keiranmraine/pidlock/tree/develop)
 
 Simple PID based locking for cronjobs, UNIX scripts or python programs.  Copes with locking between hosts.
 
