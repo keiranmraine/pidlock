@@ -39,14 +39,9 @@ jobs:
               python setup.py install
               python ./pidlock.py --version
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose
-              echo $?
               python ./pidlock.py --name test --command pwd --lockdir ~/.pidlock --verbose -w 1 -m .05
-              echo $?
               python ./pidlock.py -n test -c pwd -l ~/.pidlock -v -w 1 -m .05
-              echo $?
-              python ./pidlock.py -n test -c "sleep 10" -v &
-              echo $?
+              mkdir -p ~/.pidlock/test/ && echo 1234 no-host > ~/.pidlock/test/pidlock.pid
               python ./pidlock.py -n test -c "pwd" -v -w 3; [ $? -eq 1 ] || false
-              echo $?
+              rm -rf mkdir -p ~/.pidlock/test
               python ./pidlock.py -n test -c "pwd" -v -w 7 -m .5
-              echo $?
