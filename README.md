@@ -7,7 +7,7 @@ Simple PID based locking for cronjobs, UNIX scripts or python programs.  Copes w
 
 ## Requirement
 
-- requires python3
+- requires python3, psutil 5.9.1
 
 ## Usage
 
