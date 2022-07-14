@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-VERSION = "v3.0.1"
+VERSION = "v3.0.2"
 
 here = path.abspath(path.dirname(__file__))
 
@@ -41,11 +41,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.2",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
         "Topic :: Utilities",
         "Operating System :: MacOS",
         "Operating System :: POSIX",
